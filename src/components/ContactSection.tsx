@@ -1,11 +1,10 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
-import { AtSign, GitHub, Linkedin, Mail, Send } from "lucide-react";
+import { AtSign, Github, Linkedin, Mail, Send } from "lucide-react";
 
 const ContactSection = () => {
   const { toast } = useToast();
@@ -151,7 +150,7 @@ const ContactSection = () => {
                     rel="noopener noreferrer" 
                     className="flex items-center p-3 rounded-lg hover:bg-muted transition-colors"
                   >
-                    <GitHub className="h-5 w-5 mr-3 text-primary" />
+                    <Github className="h-5 w-5 mr-3 text-primary" />
                     <div>
                       <p className="font-medium">GitHub</p>
                       <p className="text-sm text-muted-foreground">github.com/hassan</p>
