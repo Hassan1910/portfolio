@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Code, Database, Laptop, BookOpen } from "lucide-react";
@@ -71,9 +70,11 @@ const AboutSection = () => {
         
         <div className="flex justify-center animate-fade-in">
           <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-primary/20">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center">
-              <span className="text-lg text-foreground/70">Photo Placeholder</span>
-            </div>
+            <img
+              src="/images/profile pic.jpg"
+              alt="Hassan's Profile"
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
       </div>

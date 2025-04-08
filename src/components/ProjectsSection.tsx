@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { 
   Card, CardContent, CardDescription, 
@@ -10,31 +9,103 @@ import { ExternalLink, Github } from "lucide-react";
 const projects = [
   {
     id: 1,
-    title: "Restaurant POS & Food Ordering System",
-    description: "A comprehensive SaaS solution for restaurants to manage orders, inventory, and provide online ordering for customers. Includes dashboard, analytics, and multi-platform support.",
-    image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80",
-    techStack: ["PHP", "MySQL", "JavaScript", "Tailwind CSS", "Supabase"],
-    liveLink: "#",
-    repoLink: "#"
+    title: "Portfolio",
+    description: "A modern and responsive personal portfolio website built with TypeScript and Next.js. Features dark mode, smooth animations, and a clean UI design. Showcases my projects and skills in web development.",
+    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop",
+    techStack: ["TypeScript", "Next.js", "React", "Tailwind CSS", "Shadcn/ui"],
+    liveLink: "https://hassan-portfolio.vercel.app/",
+    repoLink: "https://github.com/yourusername/portfolio",
+    category: "Web",
+    featured: true
   },
   {
     id: 2,
-    title: "E-commerce Platform",
-    description: "A modern e-commerce platform with product catalog, shopping cart, payment integration, and order management. Supports multiple payment gateways and shipping options.",
-    image: "https://images.unsplash.com/photo-1523381294911-8d3cead13475?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
-    techStack: ["PHP", "JavaScript", "MySQL", "Tailwind CSS"],
+    title: "Terral",
+    description: "An e-commerce platform that allows users to customize products before adding them to cart, providing a personalized shopping experience with real-time product customization.",
+    image: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?q=80&w=1770&auto=format&fit=crop",
+    techStack: ["PHP", "MySQL", "JavaScript", "CSS"],
     liveLink: "#",
-    repoLink: "#"
+    repoLink: "#",
+    category: "Web",
+    featured: true
   },
   {
     id: 3,
-    title: "Personal Finance Tracker",
-    description: "A web application for tracking personal finances, including expense categorization, budget planning, and visual reports. Features include data visualization and goal setting.",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2426&q=80",
-    techStack: ["JavaScript", "Supabase", "Tailwind CSS"],
+    title: "KINORU",
+    description: "A cross-platform mobile and web application built with React Native, featuring a food ordering system with seamless user experience across devices. MIT Licensed.",
+    image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1780&auto=format&fit=crop",
+    techStack: ["TypeScript", "React Native", "Node.js", "PostgreSQL"],
     liveLink: "#",
-    repoLink: "#"
+    repoLink: "#",
+    category: "Mobile",
+    featured: true
   },
+  {
+    id: 4,
+    title: "Synced Watch Party",
+    description: "A real-time synchronized video watching platform built with TypeScript, enabling users to watch content together remotely.",
+    image: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1925&auto=format&fit=crop",
+    techStack: ["TypeScript", "WebRTC", "Socket.io", "React"],
+    liveLink: "#",
+    repoLink: "#",
+    category: "Web",
+    featured: true
+  },
+  {
+    id: 5,
+    title: "Gym System",
+    description: "A comprehensive gym management system built with JavaScript, featuring member management, workout tracking, and scheduling capabilities.",
+    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1770&auto=format&fit=crop",
+    techStack: ["JavaScript", "Node.js", "Express", "MongoDB"],
+    liveLink: "#",
+    repoLink: "#",
+    category: "System",
+    featured: true
+  },
+  {
+    id: 6,
+    title: "To-Do List App",
+    description: "A clean and intuitive to-do list application with a focus on user experience and responsive design using modern CSS techniques.",
+    image: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?q=80&w=1772&auto=format&fit=crop",
+    techStack: ["HTML", "CSS", "JavaScript"],
+    liveLink: "#",
+    repoLink: "#",
+    category: "Web",
+    featured: false
+  },
+  {
+    id: 7,
+    title: "Hassan1910",
+    description: "A personal project showcasing various web development skills and experiments with modern web technologies.",
+    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2072&auto=format&fit=crop",
+    techStack: ["HTML", "CSS", "JavaScript"],
+    liveLink: "#",
+    repoLink: "#",
+    category: "Web",
+    featured: false
+  },
+  {
+    id: 8,
+    title: "Driving School System",
+    description: "A modern driving school management system featuring student registration, lesson scheduling, progress tracking, and automated billing. Includes an intuitive dashboard for both instructors and students.",
+    image: "https://images.unsplash.com/photo-1600320254374-ce2d293c324e?q=80&w=1887&auto=format&fit=crop",
+    techStack: ["JavaScript", "Node.js", "Express", "MongoDB", "React"],
+    liveLink: "#",
+    repoLink: "#",
+    category: "System",
+    featured: true
+  },
+  {
+    id: 9,
+    title: "Web Development Projects",
+    description: "A collection of web development mini projects showcasing various HTML, CSS, and JavaScript implementations. Forked from keshavgbpecdelhi/Web-Development.",
+    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=1769&auto=format&fit=crop",
+    techStack: ["HTML", "CSS", "JavaScript"],
+    liveLink: "#",
+    repoLink: "#",
+    category: "Web",
+    featured: false
+  }
 ];
 
 const ProjectsSection = () => {

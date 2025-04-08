@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -17,9 +16,19 @@ const skills = [
     category: "Frameworks & Libraries",
     items: [
       { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-      { name: "Tailwind CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" },
+      { name: "Next.js", icon: "https://seeklogo.com/images/N/next-js-icon-logo-EE302D5DBD-seeklogo.com.png" },
+      { name: "Tailwind CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
       { name: "Bootstrap", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" },
       { name: "jQuery", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg" },
+    ]
+  },
+  {
+    category: "AI & Machine Learning",
+    items: [
+      { name: "OpenAI", icon: "https://raw.githubusercontent.com/simple-icons/simple-icons/master/icons/openai.svg" },
+      { name: "LangChain", icon: "https://vectors.dev/images/technologies/langchain.svg" },
+      { name: "Hugging Face", icon: "https://huggingface.co/front/assets/huggingface_logo-noborder.svg" },
+      { name: "TensorFlow", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" },
     ]
   },
   {
@@ -60,7 +69,7 @@ const SkillsSection = () => {
                     <img 
                       src={skill.icon} 
                       alt={skill.name} 
-                      className="w-12 h-12 mb-3 object-contain" 
+                      className="w-12 h-12 mb-3 object-contain dark:invert-[.85] dark:brightness-200" 
                     />
                     <span className="text-sm font-medium">{skill.name}</span>
                   </div>
@@ -82,6 +91,9 @@ const SkillsSection = () => {
           </div>
           <div className="tech-badge px-4 py-2 flex items-center space-x-2">
             <span>Advanced React Patterns</span>
+          </div>
+          <div className="tech-badge px-4 py-2 flex items-center space-x-2">
+            <span>Large Language Models</span>
           </div>
         </div>
       </div>
