@@ -1,3 +1,4 @@
+// Skills Section Component - Updated
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 
