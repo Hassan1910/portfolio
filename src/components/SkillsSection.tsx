@@ -26,7 +26,6 @@ const skills = [
     category: "AI & Machine Learning",
     items: [
       { name: "OpenAI", icon: "https://raw.githubusercontent.com/simple-icons/simple-icons/master/icons/openai.svg" },
-      { name: "LangChain", icon: "https://vectors.dev/images/technologies/langchain.svg" },
       { name: "Hugging Face", icon: "https://huggingface.co/front/assets/huggingface_logo-noborder.svg" },
       { name: "TensorFlow", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" },
     ]
