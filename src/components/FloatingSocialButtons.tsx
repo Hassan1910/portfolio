@@ -22,8 +22,9 @@ const FloatingSocialButtons: React.FC<FloatingSocialButtonsProps> = ({
   // Format the WhatsApp URL with phone number and optional message
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
-  // Format the Telegram URL - using a more reliable format
-  const telegramUrl = `https://telegram.me/${phoneNumber}`;
+  // Format the Telegram URL - using a more reliable format for mobile
+  // This format works better on mobile devices
+  const telegramUrl = `https://t.me/+${phoneNumber}`;
 
   return (
     <div className="fixed bottom-20 sm:bottom-6 right-4 sm:left-6 z-[9999] animate-fade-in flex flex-col gap-4">
