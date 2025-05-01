@@ -5,65 +5,74 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222.2 84% 4.9%;
+    /* Modern color scheme with vibrant primary and accent colors */
+    --background: 220 33% 99%;
+    --foreground: 224 71% 4%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 224 71% 4%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 224 71% 4%;
 
-    --primary: 221 83% 53%;
+    /* Vibrant blue-purple primary */
+    --primary: 262 83% 58%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 199 89% 48%;
+    /* Teal secondary */
+    --secondary: 180 100% 50%;
     --secondary-foreground: 222.2 47.4% 11.2%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 199 89% 48%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Vibrant accent color */
+    --accent: 330 100% 50%;
+    --accent-foreground: 210 40% 98%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 221 83% 53%;
+    --ring: 262 83% 58%;
 
-    --radius: 0.75rem;
+    /* Slightly more rounded corners */
+    --radius: 1rem;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Dark mode with rich, deep colors */
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
 
-    --card: 222.2 84% 9.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 224 71% 6%;
+    --card-foreground: 213 31% 91%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 224 71% 4%;
+    --popover-foreground: 213 31% 91%;
 
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    /* Vibrant blue-purple primary in dark mode */
+    --primary: 263 70% 65%;
+    --primary-foreground: 210 40% 98%;
 
-    --secondary: 199 89% 48%;
-    --secondary-foreground: 210 40% 98%;
+    /* Teal secondary in dark mode */
+    --secondary: 180 100% 50%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 223 47% 11%;
+    --muted-foreground: 215.4 16.3% 56.9%;
 
-    --accent: 199 89% 48%;
+    /* Vibrant accent color in dark mode */
+    --accent: 330 100% 50%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+    --ring: 263 70% 65%;
   }
 }
 
@@ -77,26 +86,52 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
+  /* Modern section styling with reduced spacing */
   .section-container {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24;
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10;
   }
 
+  /* Enhanced section title with gradient underline */
   .section-title {
-    @apply text-3xl md:text-4xl font-bold mb-8 md:mb-12 text-center;
+    @apply text-3xl md:text-5xl font-bold mb-6 md:mb-8 text-center relative inline-block mx-auto;
   }
 
+  .section-title::after {
+    content: '';
+    @apply absolute bottom-[-10px] left-1/4 right-1/4 h-1 bg-gradient-to-r from-primary via-secondary to-accent rounded-full;
+  }
+
+  /* Enhanced gradient text with multiple colors */
   .gradient-text {
-    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent;
   }
 
+  /* Modern glass effect */
+  .glass-effect {
+    @apply bg-white/10 backdrop-blur-lg border border-white/20 dark:bg-black/20 dark:border-white/10;
+  }
+
+  /* Enhanced project card with glass morphism */
   .project-card {
-    @apply transition-all duration-300 hover:translate-y-[-5px] hover:shadow-lg;
+    @apply transition-all duration-300 hover:translate-y-[-8px] hover:shadow-xl relative overflow-hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   }
 
+  .project-card::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 transition-opacity duration-300;
+  }
+
+  .project-card:hover::before {
+    @apply opacity-100;
+  }
+
+  /* Enhanced tech badge */
   .tech-badge {
-    @apply px-3 py-1 rounded-full text-xs font-medium bg-muted text-muted-foreground dark:bg-muted/20;
+    @apply px-3 py-1 rounded-full text-xs font-medium bg-muted text-muted-foreground dark:bg-muted/20 border border-primary/10 transition-all duration-300 hover:scale-105 hover:border-primary/30;
   }
 
+  /* Custom scrollbar */
   .custom-scrollbar {
     scrollbar-width: thin;
     scrollbar-color: hsl(var(--primary)) transparent;
@@ -113,6 +148,32 @@
   .custom-scrollbar::-webkit-scrollbar-thumb {
     background-color: hsl(var(--primary));
     border-radius: 20px;
+  }
+
+  /* Modern button hover effect */
+  .btn-glow:hover {
+    box-shadow: 0 0 15px hsl(var(--primary) / 0.5);
+  }
+
+  /* Text gradient animation */
+  .animated-gradient-text {
+    @apply bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent bg-300%;
+    animation: textShine 5s ease-in-out infinite;
+  }
+
+  /* 3D card effect */
+  .card-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+  }
+
+  .card-3d:hover {
+    transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+  }
+
+  /* Floating animation */
+  .floating {
+    animation: floating 3s ease-in-out infinite;
   }
 }
 

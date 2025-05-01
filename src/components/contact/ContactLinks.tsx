@@ -1,46 +1,72 @@
 
 import React from 'react';
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, MapPin, Phone, Calendar } from "lucide-react";
 
 const ContactLinks = () => {
   return (
-    <div className="space-y-4">
-      <a 
-        href="mailto:adanhassan1910@gmail.com" 
-        className="flex items-center p-3 rounded-lg hover:bg-muted transition-colors"
+    <div className="space-y-5">
+      <a
+        href="mailto:adanhassan1910@gmail.com"
+        className="flex items-center p-4 rounded-lg hover:bg-white/50 dark:hover:bg-black/20 transition-all hover:scale-[1.02] border border-primary/10 group"
       >
-        <Mail className="h-5 w-5 mr-3 text-primary" />
+        <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mr-4 group-hover:bg-primary/20 transition-colors">
+          <Mail className="h-5 w-5 text-primary" />
+        </div>
         <div>
           <p className="font-medium">Email</p>
           <p className="text-sm text-muted-foreground">adanhassan1910@gmail.com</p>
         </div>
       </a>
-      
-      <a 
-        href="https://github.com/" 
-        target="_blank" 
-        rel="noopener noreferrer" 
-        className="flex items-center p-3 rounded-lg hover:bg-muted transition-colors"
+
+      <a
+        href="https://github.com/Hassan1910"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center p-4 rounded-lg hover:bg-white/50 dark:hover:bg-black/20 transition-all hover:scale-[1.02] border border-primary/10 group"
       >
-        <Github className="h-5 w-5 mr-3 text-primary" />
+        <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mr-4 group-hover:bg-primary/20 transition-colors">
+          <Github className="h-5 w-5 text-primary" />
+        </div>
         <div>
           <p className="font-medium">GitHub</p>
-          <p className="text-sm text-muted-foreground">github.com/hassan</p>
+          <p className="text-sm text-muted-foreground">github.com/Hassan1910</p>
         </div>
       </a>
-      
-      <a 
-        href="https://linkedin.com/" 
-        target="_blank" 
-        rel="noopener noreferrer" 
-        className="flex items-center p-3 rounded-lg hover:bg-muted transition-colors"
+
+      <a
+        href="https://www.linkedin.com/in/hassan-adan/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center p-4 rounded-lg hover:bg-white/50 dark:hover:bg-black/20 transition-all hover:scale-[1.02] border border-primary/10 group"
       >
-        <Linkedin className="h-5 w-5 mr-3 text-primary" />
+        <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mr-4 group-hover:bg-primary/20 transition-colors">
+          <Linkedin className="h-5 w-5 text-primary" />
+        </div>
         <div>
           <p className="font-medium">LinkedIn</p>
-          <p className="text-sm text-muted-foreground">linkedin.com/in/hassan</p>
+          <p className="text-sm text-muted-foreground">linkedin.com/in/hassan-adan</p>
         </div>
       </a>
+
+      <div className="flex items-center p-4 rounded-lg border border-primary/10 bg-white/30 dark:bg-black/10">
+        <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mr-4">
+          <MapPin className="h-5 w-5 text-primary" />
+        </div>
+        <div>
+          <p className="font-medium">Location</p>
+          <p className="text-sm text-muted-foreground">Kenya, Marsabit</p>
+        </div>
+      </div>
+
+      <div className="flex items-center p-4 rounded-lg border border-primary/10 bg-white/30 dark:bg-black/10">
+        <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mr-4">
+          <Phone className="h-5 w-5 text-primary" />
+        </div>
+        <div>
+          <p className="font-medium">Phone</p>
+          <p className="text-sm text-muted-foreground">Available upon request</p>
+        </div>
+      </div>
     </div>
   );
 };
