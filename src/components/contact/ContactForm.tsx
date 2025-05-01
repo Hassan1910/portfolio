@@ -3,19 +3,23 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
-import { Send, User, Mail, MessageSquare, Loader2 } from "lucide-react";
+import { Send, User, Mail, MessageSquare, Loader2, Phone } from "lucide-react";
 
-const API_URL = 'http://localhost:3001/api/send-email';
+// Use relative path for production, fallback to localhost for development
+const API_URL = process.env.NODE_ENV === 'production'
+  ? '/api/send-email'
+  : 'http://localhost:3001/api/send-email';
 
 interface ContactFormProps {
   nameInputRef?: React.RefObject<HTMLInputElement>;
 }
 
-const ContactForm = forwardRef<HTMLInputElement, ContactFormProps>(({ nameInputRef }, ref) => {
+const ContactForm = forwardRef<HTMLInputElement, ContactFormProps>(({ nameInputRef }) => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     subject: '',
     message: ''
   });
@@ -33,26 +37,21 @@ const ContactForm = forwardRef<HTMLInputElement, ContactFormProps>(({ nameInputR
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate API call for demo purposes
-    setTimeout(() => {
-      toast({
-        title: "Message sent!",
-        description: "Thank you for your message. I'll get back to you soon.",
-      });
-
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
-      });
-
-      setIsSubmitting(false);
-    }, 1500);
-
-    // Uncomment for real API integration
-    /*
     try {
+      console.log('Submitting form with data:', formData);
+
+      // Add debugging to check if any required fields are missing
+      if (!formData.name || !formData.email || !formData.message) {
+        console.error('Missing required fields:', formData);
+        toast({
+          title: "Error",
+          description: "Please fill out all required fields",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
       const response = await fetch(API_URL, {
         method: 'POST',
         headers: {
@@ -61,7 +60,9 @@ const ContactForm = forwardRef<HTMLInputElement, ContactFormProps>(({ nameInputR
         body: JSON.stringify(formData),
       });
 
+      console.log('Response status:', response.status);
       const data = await response.json();
+      console.log('Response data:', data);
 
       if (!response.ok) {
         throw new Error(data.error || 'Failed to send message');
@@ -75,10 +76,12 @@ const ContactForm = forwardRef<HTMLInputElement, ContactFormProps>(({ nameInputR
       setFormData({
         name: '',
         email: '',
+        phone: '',
         subject: '',
         message: ''
       });
     } catch (error) {
+      console.error('Error sending message:', error);
       toast({
         title: "Error",
         description: error instanceof Error ? error.message : "Failed to send message",
@@ -87,7 +90,6 @@ const ContactForm = forwardRef<HTMLInputElement, ContactFormProps>(({ nameInputR
     } finally {
       setIsSubmitting(false);
     }
-    */
   };
 
   return (
@@ -132,6 +134,25 @@ const ContactForm = forwardRef<HTMLInputElement, ContactFormProps>(({ nameInputR
             required
           />
         </div>
+      </div>
+
+      <div className="space-y-2">
+        <label
+          htmlFor="phone"
+          className="flex items-center gap-2 text-sm font-medium text-foreground"
+        >
+          <Phone className="h-4 w-4 text-primary" />
+          <span>Your Phone Number</span>
+        </label>
+        <Input
+          id="phone"
+          name="phone"
+          type="tel"
+          value={formData.phone}
+          onChange={handleChange}
+          placeholder="+254 XXX XXX XXX"
+          className="bg-white/50 dark:bg-black/10 border-primary/10 focus:border-primary/30"
+        />
       </div>
 
       <div className="space-y-2">

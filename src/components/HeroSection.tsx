@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowDownCircle, Github, Linkedin, Mail, FileText, Code, Database, Server } from "lucide-react";
+import { FaWhatsapp, FaTelegram } from "react-icons/fa";
 
 const HeroSection = () => {
   const particlesRef = useRef<HTMLDivElement>(null);
@@ -162,6 +163,24 @@ const HeroSection = () => {
                 aria-label="Email Me"
               >
                 <Mail className="w-6 h-6" />
+              </a>
+              <a
+                href="https://wa.me/254757489214"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-all hover:scale-110"
+                aria-label="WhatsApp"
+              >
+                <FaWhatsapp className="w-6 h-6" />
+              </a>
+              <a
+                href="https://t.me/254757489214"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-all hover:scale-110"
+                aria-label="Telegram"
+              >
+                <FaTelegram className="w-6 h-6" />
               </a>
               <a
                 href="/images/CV_Hassan_Adan.docx"

@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Github, Linkedin, Mail, MapPin, Phone, Calendar } from "lucide-react";
+import { FaWhatsapp, FaTelegram } from "react-icons/fa";
 
 const ContactLinks = () => {
   return (
@@ -58,13 +59,15 @@ const ContactLinks = () => {
         </div>
       </div>
 
+
+
       <div className="flex items-center p-4 rounded-lg border border-primary/10 bg-white/30 dark:bg-black/10">
         <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mr-4">
           <Phone className="h-5 w-5 text-primary" />
         </div>
         <div>
           <p className="font-medium">Phone</p>
-          <p className="text-sm text-muted-foreground">Available upon request</p>
+          <p className="text-sm text-muted-foreground">Available via floating chat buttons</p>
         </div>
       </div>
     </div>
