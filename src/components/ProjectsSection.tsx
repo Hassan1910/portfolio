@@ -6,6 +6,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Github, Code, Star, Calendar, ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { OptimizedImage } from "@/components/ui/optimized-image";
 
 const projects = [
   {
@@ -170,12 +171,16 @@ const ProjectsSection = () => {
                 </div>
               </div>
 
-              <img
+              <OptimizedImage
                 src={project.image}
                 alt={project.title}
                 className={`object-cover w-full h-full transition-transform duration-500 ${
                   hoveredProject === project.id ? 'scale-110 blur-sm' : 'scale-100'
                 }`}
+                width={640}
+                height={360}
+                loading="lazy"
+                decoding="async"
               />
             </div>
 
