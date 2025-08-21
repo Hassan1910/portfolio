@@ -1,7 +1,7 @@
 import React from 'react';
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { Code, Database, Layout, Smartphone, Server, Lightbulb, CheckCircle, Brain } from "lucide-react";
+import { Code, Database, Layout, Smartphone, Server, Lightbulb, CheckCircle, Brain, CreditCard } from "lucide-react";
 
 const services = [
   {
@@ -84,6 +84,19 @@ const services = [
   },
   {
     id: 7,
+    title: "M-Pesa Integration",
+    description: "Seamless M-Pesa payment integration to enable secure mobile money transactions in your system.",
+    icon: <CreditCard className="h-10 w-10" />,
+    color: "from-emerald-500 to-green-600",
+    features: [
+      "M-Pesa API integration",
+      "Secure payment processing",
+      "Transaction status tracking",
+      "Real-time payment notifications"
+    ]
+  },
+  {
+    id: 8,
     title: "Technical Consultation",
     description: "Expert advice on technology choices, architecture, and development strategies.",
     icon: <Lightbulb className="h-10 w-10" />,
@@ -110,7 +123,7 @@ const ServicesSection = () => {
         </Badge>
         <h2 className="section-title">What I Offer</h2>
         <p className="text-center text-muted-foreground max-w-2xl mx-auto mt-4">
-          Specialized services tailored to meet your project needs with quality and efficiency.
+          Specialized services including M-Pesa integration, web development, and mobile solutions tailored to meet your project needs with quality and efficiency.
         </p>
       </div>
 

@@ -10,7 +10,7 @@ const experiences = [
     company: "Savenet Company Limited",
     location: "Kenya, Marsabit",
     type: "Full-time",
-    period: "Jan 2023 - Present",
+  period: "Jan 2024 - Present",
     description: "Developing and maintaining web applications using React, Node.js, and PostgreSQL. Collaborating with the design team to implement responsive UI components and integrating RESTful APIs.",
     skills: ["React", "Node.js", "PostgreSQL", "RESTful API", "Git"],
     link: "#"
@@ -19,9 +19,9 @@ const experiences = [
     id: 2,
     title: "AI Developer & Project Lead",
     company: "NarrateVision",
-    location: "Remote",
-    type: "Project",
-    period: "Aug 2023 - Dec 2023",
+  location: "Personal",
+  type: "Side project",
+  period: "Feb 2025 - Mar 2025",
     description: "Led the development of NarrateVision, an innovative platform that transforms text into engaging videos with AI-generated visuals and natural narration. Implemented AI APIs for image generation and text-to-speech conversion.",
     skills: ["Next.js", "React", "FFmpeg", "AI APIs", "TypeScript", "Tailwind CSS"],
     link: "https://narratevision.vercel.app/"

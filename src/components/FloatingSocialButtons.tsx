@@ -53,7 +53,7 @@ const FloatingSocialButtons: React.FC<FloatingSocialButtonsProps> = ({
   }, [whatsappUrl, telegramUrl]);
 
   return (
-    <div className={`fixed bottom-20 sm:bottom-6 right-4 sm:left-6 z-[9999] flex flex-col gap-4 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+    <div className={`fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-[9999] flex flex-col gap-4 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
       {/* WhatsApp Button */}
       <div className={`relative transition-all duration-500 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}>
         {/* Enhanced background glow with glassmorphism */}

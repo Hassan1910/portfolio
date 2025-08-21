@@ -108,7 +108,7 @@ const AboutSection = () => {
               <div className="relative">
                 <div className="absolute -left-[31px] top-1 h-5 w-5 rounded-full bg-primary/20 border-2 border-primary"></div>
                 <div className="mb-1 flex items-center gap-2">
-                  <span className="text-sm bg-primary/10 text-primary px-2 py-0.5 rounded-full">2023</span>
+                  <span className="text-sm bg-primary/10 text-primary px-2 py-0.5 rounded-full">2024</span>
                   <h4 className="font-semibold">Joined Savenet Company Limited</h4>
                 </div>
                 <p className="text-muted-foreground">Started as Software Engineer and System Support in Marsabit, Kenya</p>

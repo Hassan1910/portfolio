@@ -11,6 +11,19 @@ import { OptimizedImage } from "@/components/ui/optimized-image";
 const projects = [
   {
     id: 1,
+    title: "BomaHub - Rental Houses Platform",
+    description: "A comprehensive rental platform that connects landlords and tenants seamlessly. The system allows property owners to list their rental properties while enabling potential tenants to search, view, and connect with landlords directly. Features include property listings, search filters, contact management, and user-friendly interfaces for both parties.",
+    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80",
+    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel"],
+    repoLink: "https://github.com/Hassan1910/bomahub",
+    demoLink: "https://bomahub-blush.vercel.app/",
+    category: "Web",
+    featured: true,
+    year: "2025",
+    highlights: ["Landlord-Tenant Connection", "Property Listings & Search", "Contact Management System"]
+  },
+  {
+    id: 2,
     title: "NarrateVision - AI Video Generator",
     description: "An innovative platform that transforms text into engaging videos with AI-generated visuals and natural narration. Users can create stunning content in minutes with customizable effects and voice options.",
     image: "https://images.unsplash.com/photo-1626544827763-d516dce335e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
@@ -23,7 +36,7 @@ const projects = [
     highlights: ["AI-Generated Visuals", "Natural Text-to-Speech", "Customizable Effects"]
   },
   {
-    id: 2,
+    id: 3,
     title: "KINORU - Food Ordering System",
     description: "A cross-platform food ordering application built with React Native. Features include restaurant menus, real-time order tracking, user authentication, and a responsive UI. The platform uses Supabase for backend services and database management.",
     image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
@@ -36,7 +49,7 @@ const projects = [
     highlights: ["Real-time order tracking", "User authentication", "Restaurant management"]
   },
   {
-    id: 3,
+    id: 4,
     title: "Gym Management System",
     description: "A comprehensive gym management system with features for member management, workout tracking, and scheduling. Includes an admin dashboard for managing memberships, classes, and trainers.",
     image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
@@ -49,7 +62,7 @@ const projects = [
     highlights: ["Member management", "Workout tracking", "Class scheduling"]
   },
   {
-    id: 4,
+    id: 5,
     title: "Terral - Custom Product E-commerce",
     description: "An e-commerce platform specializing in product customization. Features include product browsing, real-time customization tools, secure checkout, and order tracking. Users can add logos, text, or designs to products before ordering.",
     image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
