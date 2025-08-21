@@ -80,12 +80,6 @@ const FloatingSocialButtons: React.FC<FloatingSocialButtonsProps> = ({
                 }}
               >
                 <FaWhatsapp className="w-7 h-7 sm:w-8 sm:h-8 transition-transform duration-300 group-hover:scale-110" />
-                
-                {/* Enhanced notification badge */}
-                <span className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-r from-red-500 to-red-600 text-[11px] font-bold text-white shadow-lg border-2 border-white animate-bounce">
-                  <span className="relative z-10">1</span>
-                  <div className="absolute inset-0 rounded-full bg-red-500 animate-ping opacity-30"></div>
-                </span>
               </a>
             </TooltipTrigger>
             <TooltipContent 
@@ -127,12 +121,6 @@ const FloatingSocialButtons: React.FC<FloatingSocialButtonsProps> = ({
                 }}
               >
                 <FaTelegram className="w-7 h-7 sm:w-8 sm:h-8 transition-transform duration-300 group-hover:scale-110" />
-                
-                {/* Enhanced notification badge */}
-                <span className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-r from-red-500 to-red-600 text-[11px] font-bold text-white shadow-lg border-2 border-white animate-bounce">
-                  <span className="relative z-10">1</span>
-                  <div className="absolute inset-0 rounded-full bg-red-500 animate-ping opacity-30"></div>
-                </span>
               </a>
             </TooltipTrigger>
             <TooltipContent 
