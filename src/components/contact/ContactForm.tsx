@@ -1,11 +1,7 @@
 import React, { useState, forwardRef } from 'react';
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
-import { Send, User, Mail, MessageSquare, Loader2, Phone } from "lucide-react";
+import { Send, Loader2 } from "lucide-react";
 
-// Use relative path for production, fallback to localhost for development
 const API_URL = process.env.NODE_ENV === 'production'
   ? '/api/send-email'
   : 'http://localhost:3001/api/send-email';
@@ -21,67 +17,38 @@ const ContactForm = forwardRef<HTMLInputElement, ContactFormProps>(({ nameInputR
     email: '',
     phone: '',
     subject: '',
-    message: ''
+    message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    if (!formData.name || !formData.email || !formData.message) {
+      toast({ title: "Error", description: "Please fill out all required fields.", variant: "destructive" });
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
-      console.log('Submitting form with data:', formData);
-
-      // Add debugging to check if any required fields are missing
-      if (!formData.name || !formData.email || !formData.message) {
-        console.error('Missing required fields:', formData);
-        toast({
-          title: "Error",
-          description: "Please fill out all required fields",
-          variant: "destructive",
-        });
-        setIsSubmitting(false);
-        return;
-      }
-
       const response = await fetch(API_URL, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
-
-      console.log('Response status:', response.status);
       const data = await response.json();
-      console.log('Response data:', data);
 
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to send message');
-      }
+      if (!response.ok) throw new Error(data.error || 'Failed to send message');
 
-      toast({
-        title: "Message sent!",
-        description: "Thank you for your message. I'll get back to you soon.",
-      });
-
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: ''
-      });
+      toast({ title: "Message sent!", description: "I'll get back to you soon." });
+      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
     } catch (error) {
-      console.error('Error sending message:', error);
       toast({
         title: "Error",
         description: error instanceof Error ? error.message : "Failed to send message",
@@ -93,132 +60,108 @@ const ContactForm = forwardRef<HTMLInputElement, ContactFormProps>(({ nameInputR
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="space-y-2">
-          <label
-            htmlFor="name"
-            className="flex items-center gap-2 text-sm font-medium text-foreground"
-          >
-            <User className="h-4 w-4 text-primary" />
-            <span>Your Name</span>
+    <form onSubmit={handleSubmit} className="space-y-8">
+      <div className="grid sm:grid-cols-2 gap-8">
+        <div className="space-y-1">
+          <label htmlFor="name" className="text-xs text-muted-foreground uppercase tracking-wider">
+            Name <span className="text-primary">*</span>
           </label>
-          <Input
+          <input
             id="name"
             name="name"
             ref={nameInputRef}
             value={formData.name}
             onChange={handleChange}
-            placeholder="Adan Wako"
-            className="bg-white/50 dark:bg-black/10 border-primary/10 focus:border-primary/30"
+            placeholder="Your full name"
+            className="form-input"
             required
           />
         </div>
-
-        <div className="space-y-2">
-          <label
-            htmlFor="email"
-            className="flex items-center gap-2 text-sm font-medium text-foreground"
-          >
-            <Mail className="h-4 w-4 text-primary" />
-            <span>Your Email</span>
+        <div className="space-y-1">
+          <label htmlFor="email" className="text-xs text-muted-foreground uppercase tracking-wider">
+            Email <span className="text-primary">*</span>
           </label>
-          <Input
+          <input
             id="email"
             name="email"
             type="email"
             value={formData.email}
             onChange={handleChange}
-            placeholder="adanwako@example.com"
-            className="bg-white/50 dark:bg-black/10 border-primary/10 focus:border-primary/30"
+            placeholder="you@example.com"
+            className="form-input"
             required
           />
         </div>
       </div>
 
-      <div className="space-y-2">
-        <label
-          htmlFor="phone"
-          className="flex items-center gap-2 text-sm font-medium text-foreground"
-        >
-          <Phone className="h-4 w-4 text-primary" />
-          <span>Your Phone Number</span>
+      <div className="space-y-1">
+        <label htmlFor="phone" className="text-xs text-muted-foreground uppercase tracking-wider">
+          Phone <span className="text-muted-foreground/50">(optional)</span>
         </label>
-        <Input
+        <input
           id="phone"
           name="phone"
           type="tel"
           value={formData.phone}
           onChange={handleChange}
           placeholder="+254 XXX XXX XXX"
-          className="bg-white/50 dark:bg-black/10 border-primary/10 focus:border-primary/30"
+          className="form-input"
         />
       </div>
 
-      <div className="space-y-2">
-        <label
-          htmlFor="subject"
-          className="flex items-center gap-2 text-sm font-medium text-foreground"
-        >
-          <MessageSquare className="h-4 w-4 text-primary" />
-          <span>Subject</span>
+      <div className="space-y-1">
+        <label htmlFor="subject" className="text-xs text-muted-foreground uppercase tracking-wider">
+          Subject <span className="text-primary">*</span>
         </label>
-        <Input
+        <input
           id="subject"
           name="subject"
           value={formData.subject}
           onChange={handleChange}
-          placeholder="What is this regarding?"
-          className="bg-white/50 dark:bg-black/10 border-primary/10 focus:border-primary/30"
+          placeholder="What is this about?"
+          className="form-input"
           required
         />
       </div>
 
-      <div className="space-y-2">
-        <label
-          htmlFor="message"
-          className="flex items-center gap-2 text-sm font-medium text-foreground"
-        >
-          <MessageSquare className="h-4 w-4 text-primary" />
-          <span>Your Message</span>
+      <div className="space-y-1">
+        <label htmlFor="message" className="text-xs text-muted-foreground uppercase tracking-wider">
+          Message <span className="text-primary">*</span>
         </label>
-        <Textarea
+        <textarea
           id="message"
           name="message"
           value={formData.message}
           onChange={handleChange}
-          placeholder="Tell me about your project or inquiry..."
-          rows={6}
-          className="bg-white/50 dark:bg-black/10 border-primary/10 focus:border-primary/30 resize-none"
+          placeholder="Tell me about your project..."
+          rows={5}
+          className="form-input resize-none"
           required
         />
       </div>
 
-      <Button
+      <button
         type="submit"
-        className="w-full bg-primary hover:bg-primary/90 text-white font-medium px-8 py-6 h-auto btn-glow relative overflow-hidden group"
+        className="btn-primary w-full justify-center"
         disabled={isSubmitting}
+        id="contact-submit-btn"
       >
         {isSubmitting ? (
-          <span className="flex items-center">
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sending Message...
-          </span>
+          <>
+            <Loader2 size={14} className="animate-spin" />
+            Sending...
+          </>
         ) : (
-          <span className="flex items-center relative z-10">
-            <Send className="mr-2 h-4 w-4" /> Send Message
-          </span>
+          <>
+            <Send size={14} />
+            Send Message
+          </>
         )}
-        <span className="absolute inset-0 bg-white/20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
-      </Button>
-
-      <p className="text-xs text-muted-foreground text-center">
-        By submitting this form, you agree to be contacted about your request.
-        I respect your privacy and will never share your information.
-      </p>
+      </button>
     </form>
   );
 });
 
-ContactForm.displayName = "ContactForm";
+ContactForm.displayName = 'ContactForm';
 
 export default ContactForm;
