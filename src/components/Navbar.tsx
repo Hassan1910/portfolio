@@ -1,37 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from "react";
 import { Menu, Moon, Sun, X } from "lucide-react";
-
-const navLinks = [
-  { id: 'about', label: 'About' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'skills', label: 'Skills' },
-  { id: 'contact', label: 'Contact' },
-];
+import { navLinks, profile } from "@/data/profile";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
-  const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
-    const savedTheme = localStorage.theme as 'light' | 'dark' | undefined;
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const initial = savedTheme ?? (prefersDark ? 'dark' : 'dark');
-    setTheme(initial);
-    document.documentElement.classList.toggle('dark', initial === 'dark');
+    setTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
   }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-
-      const sectionIds = ['contact', 'skills', 'projects', 'experience', 'services', 'about'];
-      let current = 'home';
-      for (const id of sectionIds) {
+      const ids = [...navLinks].map((link) => link.id).reverse();
+      let current = "home";
+      for (const id of ids) {
         const el = document.getElementById(id);
-        if (el && el.getBoundingClientRect().top <= 120) {
+        if (el && el.getBoundingClientRect().top <= 96) {
           current = id;
           break;
         }
@@ -39,123 +25,105 @@ const Navbar = () => {
       setActiveSection(current);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const toggleTheme = () => {
-    const next = theme === 'light' ? 'dark' : 'light';
+    const next = theme === "light" ? "dark" : "light";
     setTheme(next);
-    document.documentElement.classList.toggle('dark', next === 'dark');
+    document.documentElement.classList.toggle("dark", next === "dark");
     localStorage.theme = next;
   };
 
-  const scrollToSection = (id: string) => {
+  const scrollTo = (id: string) => {
     setIsOpen(false);
-    if (id === 'home') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    if (id === "home") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
     }
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-background/95 backdrop-blur-sm border-b border-border'
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="max-w-5xl mx-auto px-6 sm:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+    <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur-md">
+      <div className="page-wrap flex h-16 items-center justify-between gap-4">
+        <button
+          type="button"
+          onClick={() => scrollTo("home")}
+          className="text-sm font-medium tracking-tight text-foreground"
+        >
+          {profile.name}
+        </button>
+
+        <nav className="hidden items-center gap-5 lg:flex" aria-label="Page">
+          {navLinks.map((link) => (
+            <button
+              key={link.id}
+              type="button"
+              onClick={() => scrollTo(link.id)}
+              className={`text-sm transition-colors ${
+                activeSection === link.id
+                  ? "text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+              aria-current={activeSection === link.id ? "true" : undefined}
+            >
+              {link.label}
+            </button>
+          ))}
+        </nav>
+
+        <div className="flex items-center gap-1">
           <button
-            onClick={() => scrollToSection('home')}
-            className="font-mono text-sm font-semibold text-foreground hover:text-primary transition-colors"
-            aria-label="Go to top"
+            type="button"
+            onClick={toggleTheme}
+            className="rounded-md p-2 text-muted-foreground hover:text-foreground"
+            aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
           >
-            Hassan<span className="text-primary">.</span>
+            {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
           </button>
-
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map(link => (
-              <button
-                key={link.id}
-                onClick={() => scrollToSection(link.id)}
-                className={`nav-link text-sm ${activeSection === link.id ? 'active' : ''}`}
-              >
-                {link.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Right side actions */}
-          <div className="hidden md:flex items-center gap-3">
-            <button
-              onClick={toggleTheme}
-              className="p-2 text-muted-foreground hover:text-foreground transition-colors"
-              aria-label="Toggle theme"
-            >
-              {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
-            </button>
-            <button
-              onClick={() => scrollToSection('contact')}
-              className="btn-ghost text-sm"
-              id="navbar-hire-btn"
-            >
-              Hire Me
-            </button>
-          </div>
-
-          {/* Mobile */}
-          <div className="flex md:hidden items-center gap-2">
-            <button
-              onClick={toggleTheme}
-              className="p-2 text-muted-foreground hover:text-foreground transition-colors"
-              aria-label="Toggle theme"
-            >
-              {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
-            </button>
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-muted-foreground hover:text-foreground transition-colors"
-              aria-label="Toggle menu"
-            >
-              {isOpen ? <X size={18} /> : <Menu size={18} />}
-            </button>
-          </div>
+          <a href={profile.cvPath} className="btn-ghost hidden px-3 py-1.5 lg:inline-flex">
+            CV
+          </a>
+          <button
+            type="button"
+            onClick={() => setIsOpen((open) => !open)}
+            className="rounded-md p-2 text-muted-foreground hover:text-foreground lg:hidden"
+            aria-expanded={isOpen}
+            aria-controls="mobile-nav"
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+          >
+            {isOpen ? <X size={18} /> : <Menu size={18} />}
+          </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden border-t border-border bg-background animate-slide-down">
-          <div className="max-w-5xl mx-auto px-6 py-6 flex flex-col gap-4">
-            {navLinks.map(link => (
+      {isOpen ? (
+        <nav id="mobile-nav" className="border-t border-border lg:hidden" aria-label="Page">
+          <div className="page-wrap flex flex-col gap-1 py-3">
+            {navLinks.map((link) => (
               <button
                 key={link.id}
-                onClick={() => scrollToSection(link.id)}
-                className={`text-sm text-left transition-colors ${
+                type="button"
+                onClick={() => scrollTo(link.id)}
+                className={`rounded-md px-2 py-2 text-left text-sm ${
                   activeSection === link.id
-                    ? 'text-primary font-medium'
-                    : 'text-muted-foreground hover:text-foreground'
+                    ? "text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {link.label}
               </button>
             ))}
-            <button
-              onClick={() => scrollToSection('contact')}
-              className="btn-primary mt-2 justify-center"
-            >
-              Hire Me
-            </button>
+            <a href={profile.cvPath} className="rounded-md px-2 py-2 text-sm text-muted-foreground hover:text-foreground">
+              Download CV
+            </a>
           </div>
-        </div>
-      )}
-    </nav>
+        </nav>
+      ) : null}
+    </header>
   );
 };
 

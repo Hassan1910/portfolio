@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,450;0,6..72,550;1,6..72,450&family=Outfit:wght@300;400;500;600&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -6,71 +6,50 @@
 
 @layer base {
   :root {
-    /* Minimal light mode (fallback) */
-    --background: 220 20% 97%;
-    --foreground: 220 20% 8%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 220 20% 8%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 20% 8%;
-
-    --primary: 217 91% 65%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 220 15% 92%;
-    --secondary-foreground: 220 20% 8%;
-
-    --muted: 220 15% 92%;
-    --muted-foreground: 220 10% 50%;
-
-    --accent: 217 91% 65%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 72% 51%;
+    --background: 40 33% 96%;
+    --foreground: 30 10% 12%;
+    --card: 40 40% 99%;
+    --card-foreground: 30 10% 12%;
+    --popover: 40 40% 99%;
+    --popover-foreground: 30 10% 12%;
+    --primary: 168 42% 22%;
+    --primary-foreground: 40 33% 97%;
+    --secondary: 36 18% 92%;
+    --secondary-foreground: 30 10% 12%;
+    --muted: 36 18% 92%;
+    --muted-foreground: 30 7% 32%;
+    --accent: 168 42% 22%;
+    --accent-foreground: 40 33% 97%;
+    --destructive: 0 72% 42%;
     --destructive-foreground: 0 0% 100%;
-
-    --border: 220 15% 88%;
-    --input: 220 15% 88%;
-    --ring: 217 91% 65%;
-
-    --radius: 0.5rem;
+    --border: 36 14% 84%;
+    --input: 36 14% 84%;
+    --ring: 168 42% 22%;
+    --radius: 0.625rem;
   }
 
   .dark {
-    /* Deep slate dark mode — primary design */
-    --background: 220 20% 8%;
-    --foreground: 210 15% 93%;
-
-    --card: 220 18% 11%;
-    --card-foreground: 210 15% 93%;
-
-    --popover: 220 18% 11%;
-    --popover-foreground: 210 15% 93%;
-
-    --primary: 217 91% 65%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 220 15% 18%;
-    --secondary-foreground: 210 15% 93%;
-
-    --muted: 220 15% 15%;
-    --muted-foreground: 220 10% 55%;
-
-    --accent: 217 91% 65%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 62% 50%;
+    --background: 30 8% 8%;
+    --foreground: 40 28% 94%;
+    --card: 30 7% 11%;
+    --card-foreground: 40 28% 94%;
+    --popover: 30 7% 11%;
+    --popover-foreground: 40 28% 94%;
+    --primary: 164 34% 76%;
+    --primary-foreground: 168 45% 10%;
+    --secondary: 30 6% 16%;
+    --secondary-foreground: 40 28% 94%;
+    --muted: 30 6% 16%;
+    --muted-foreground: 35 14% 74%;
+    --accent: 164 34% 76%;
+    --accent-foreground: 168 45% 10%;
+    --destructive: 0 62% 58%;
     --destructive-foreground: 0 0% 100%;
-
-    --border: 220 15% 18%;
-    --input: 220 15% 18%;
-    --ring: 217 91% 65%;
+    --border: 30 6% 22%;
+    --input: 30 6% 22%;
+    --ring: 164 34% 76%;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
@@ -80,114 +59,67 @@
   }
 
   body {
-    @apply bg-background text-foreground;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-feature-settings: "rlig" 1, "calt" 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    @apply bg-background text-foreground antialiased;
+    font-family: "Outfit", "Avenir Next", "Segoe UI", sans-serif;
+    font-feature-settings: "ss01" 1;
+    text-rendering: optimizeLegibility;
   }
 
-  /* Section container */
-  .section-container {
-    @apply max-w-5xl mx-auto px-6 sm:px-8 py-20 md:py-28;
+  ::selection {
+    background: hsl(var(--primary) / 0.18);
   }
 
-  /* Section heading */
-  .section-heading {
-    @apply text-sm font-mono uppercase tracking-widest text-primary mb-3;
-    font-family: 'JetBrains Mono', monospace;
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .page-wrap {
+    @apply mx-auto w-full max-w-3xl px-6;
   }
 
-  .section-title {
-    @apply text-3xl md:text-4xl font-bold tracking-tight mb-4;
+  .eyebrow {
+    @apply text-[0.7rem] font-medium uppercase tracking-[0.18em] text-primary;
   }
 
-  /* Monospace utility */
-  .mono {
-    font-family: 'JetBrains Mono', monospace;
+  .serif {
+    font-family: "Newsreader", "Iowan Old Style", Georgia, serif;
+    font-optical-sizing: auto;
   }
 
-  /* Tech tag — minimal chip */
-  .tech-tag {
-    @apply inline-flex items-center px-2.5 py-1 rounded text-xs font-mono font-medium
-           bg-muted text-muted-foreground border border-border
-           transition-colors duration-200 hover:border-primary/40 hover:text-foreground;
-  }
-
-  /* Clean button */
   .btn-primary {
-    @apply inline-flex items-center gap-2 px-5 py-2.5 rounded bg-primary text-primary-foreground
-           text-sm font-medium transition-all duration-200
-           hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
+    @apply inline-flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90;
   }
 
   .btn-ghost {
-    @apply inline-flex items-center gap-2 px-5 py-2.5 rounded border border-border text-foreground
-           text-sm font-medium transition-all duration-200
-           hover:border-primary/50 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
+    @apply inline-flex items-center justify-center gap-2 rounded-md border border-border bg-transparent px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-secondary;
   }
 
-  /* Minimal card */
-  .minimal-card {
-    @apply rounded-lg border border-border bg-card p-6
-           transition-all duration-200 hover:border-primary/30;
+  .text-link {
+    @apply text-foreground underline decoration-border underline-offset-4 transition-colors hover:decoration-primary;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 
-  /* Nav link */
-  .nav-link {
-    @apply relative text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground;
-  }
-
-  .nav-link.active {
-    @apply text-foreground;
-  }
-
-  .nav-link::after {
-    content: '';
-    @apply absolute -bottom-1 left-0 right-0 h-px bg-primary scale-x-0 transition-transform duration-200 origin-left;
-  }
-
-  .nav-link.active::after,
-  .nav-link:hover::after {
-    @apply scale-x-100;
-  }
-
-  /* Timeline */
-  .timeline-line {
-    @apply absolute left-0 top-0 bottom-0 w-px bg-border;
-  }
-
-  .timeline-dot {
-    @apply absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-primary ring-2 ring-background;
-  }
-
-  /* Form input — bottom border style */
-  .form-input {
-    @apply w-full bg-transparent border-0 border-b border-border pb-2 pt-1
-           text-sm text-foreground placeholder:text-muted-foreground
-           transition-colors duration-200
-           focus:outline-none focus:border-primary;
-  }
-
-  /* Custom scrollbar */
-  ::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background-color: hsl(var(--border));
-    border-radius: 2px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: hsl(var(--primary));
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
 html.dark {
   color-scheme: dark;
+}
+
+html:not(.dark) {
+  color-scheme: light;
 }

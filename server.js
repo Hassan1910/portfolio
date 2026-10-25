@@ -1,87 +1,66 @@
-import express from 'express';
-import { Resend } from 'resend';
-import dotenv from 'dotenv';
-import cors from 'cors';
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import { Resend } from "resend";
 
 dotenv.config();
 
 const app = express();
-const port = 3001;
+const port = Number(process.env.PORT || 3001);
 
-app.use(cors());
-app.use(express.json());
+app.use(cors(process.env.CORS_ORIGIN ? { origin: process.env.CORS_ORIGIN } : undefined));
+app.use(express.json({ limit: "32kb" }));
 
-const resend = new Resend('re_ZxaKmj1W_9SZEsDbbsqjzYDsM8TakVGb4');
+const escapeHtml = (value) =>
+  String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 
-app.post('/api/send-email', async (req, res) => {
-  try {
-    console.log('Received form submission:', req.body);
-
-    const { name, email, phone, subject, message } = req.body;
-
-    if (!name || !email || !message) {
-      console.error('Missing required fields:', { name, email, message });
-      return res.status(400).json({ error: 'Missing required fields' });
-    }
-
-    console.log('Sending email with Resend...');
-    const { data, error } = await resend.emails.send({
-      from: 'Portfolio Contact <onboarding@resend.dev>',
-      to: 'chizicheza@gmail.com', // Using the verified email address
-      replyTo: email,
-      subject: subject ? `${subject} - Message from ${name}` : `New Contact Form Message from ${name}`,
-      html: `
-        <h2>New Contact Form Submission</h2>
-        <p><strong>From:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
-        <p><strong>Subject:</strong> ${subject || 'No subject'}</p>
-        <p><strong>Message:</strong></p>
-        <p>${message}</p>
-      `,
+app.post("/api/send-email", async (req, res) => {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    return res.status(503).json({
+      error: "Contact API is not configured. Set RESEND_API_KEY, or use the site mailto form.",
     });
-
-    if (error) {
-      console.error('Resend API error:', error);
-      return res.status(400).json({ error: error.message });
-    }
-
-    console.log('Email sent successfully:', data);
-    return res.json({ success: true, data });
-  } catch (error) {
-    console.error('Error sending email:', error);
-    return res.status(500).json({ error: 'Failed to send email', details: error.message });
   }
+
+  const { name, email, message, phone, subject } = req.body ?? {};
+  if (!name || !email || !message) {
+    return res.status(400).json({ error: "Name, email, and message are required." });
+  }
+  if (typeof email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return res.status(400).json({ error: "Enter a valid email address." });
+  }
+
+  const resend = new Resend(apiKey);
+  const to = process.env.CONTACT_TO || "adanhassan1910@gmail.com";
+  const from = process.env.CONTACT_FROM || "Portfolio Contact <onboarding@resend.dev>";
+
+  const { data, error } = await resend.emails.send({
+    from,
+    to,
+    replyTo: email,
+    subject: subject ? `${subject} — ${name}` : `Portfolio message from ${name}`,
+    html: `
+      <h2>Portfolio contact</h2>
+      <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+      <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+      <p><strong>Phone:</strong> ${escapeHtml(phone || "Not provided")}</p>
+      <p><strong>Subject:</strong> ${escapeHtml(subject || "No subject")}</p>
+      <p><strong>Message:</strong></p>
+      <p>${escapeHtml(message).replace(/\n/g, "<br>")}</p>
+    `,
+  });
+
+  if (error) {
+    return res.status(400).json({ error: error.message });
+  }
+
+  return res.json({ success: true, id: data?.id ?? null });
 });
 
-// Test the Resend API key on startup
-const testResendApiKey = async () => {
-  try {
-    console.log('Testing Resend API key...');
-    const { data, error } = await resend.emails.send({
-      from: 'Portfolio Contact <onboarding@resend.dev>',
-      to: 'chizicheza@gmail.com', // Using the verified email address
-      subject: 'Testing Resend API Connection',
-      html: `
-        <h2>Test Email</h2>
-        <p>This is a test email to verify the Resend API connection is working.</p>
-        <p>The contact form now includes a phone number field.</p>
-      `,
-    });
-
-    if (error) {
-      console.error('Resend API test failed:', error);
-    } else {
-      console.log('Resend API test successful:', data);
-    }
-  } catch (error) {
-    console.error('Error testing Resend API:', error);
-  }
-};
-
-// Run the test
-testResendApiKey();
-
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+  console.log(`Contact API listening on http://localhost:${port}`);
 });
