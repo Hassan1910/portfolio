@@ -20,8 +20,8 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
-				mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+				sans: ['Outfit', 'Avenir Next', 'Segoe UI', 'sans-serif'],
+				serif: ['Newsreader', 'Iowan Old Style', 'Georgia', 'serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',

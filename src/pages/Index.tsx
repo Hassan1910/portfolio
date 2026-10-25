@@ -1,53 +1,31 @@
-import React, { useEffect } from 'react';
-import Navbar from '@/components/Navbar';
-import HeroSection from '@/components/HeroSection';
-import AboutSection from '@/components/AboutSection';
-import ExperienceSection from '@/components/ExperienceSection';
-import ServicesSection from '@/components/ServicesSection';
-import ProjectsSection from '@/components/ProjectsSection';
-import SkillsSection from '@/components/SkillsSection';
-import BlogSection from '@/components/BlogSection';
-import ContactSection from '@/components/ContactSection';
-import Footer from '@/components/Footer';
-import ScrollToTop from '@/components/ScrollToTop';
-import LoadingScreen from '@/components/LoadingScreen';
+import AboutSection from "@/components/AboutSection";
+import ContactSection from "@/components/ContactSection";
+import EducationSection from "@/components/EducationSection";
+import ExperienceSection from "@/components/ExperienceSection";
+import Footer from "@/components/Footer";
+import HeroSection from "@/components/HeroSection";
+import Navbar from "@/components/Navbar";
+import ProjectsSection from "@/components/ProjectsSection";
+import ScrollToTop from "@/components/ScrollToTop";
+import SkillsSection from "@/components/SkillsSection";
 
 const Index = () => {
-  // Fade-in on scroll
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-up');
-            (entry.target as HTMLElement).style.opacity = '1';
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    const hiddenEls = document.querySelectorAll('.fade-in-scroll');
-    hiddenEls.forEach((el) => {
-      (el as HTMLElement).style.opacity = '0';
-      observer.observe(el);
-    });
-
-    return () => hiddenEls.forEach((el) => observer.unobserve(el));
-  }, []);
-
   return (
-    <div className="flex flex-col min-h-screen">
-      <LoadingScreen />
+    <div className="flex min-h-screen flex-col">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-primary focus:px-3 focus:py-2 focus:text-sm focus:text-primary-foreground"
+      >
+        Skip to content
+      </a>
       <Navbar />
-      <main className="flex-grow">
+      <main id="main" className="flex-grow">
         <HeroSection />
         <AboutSection />
         <ExperienceSection />
-        <ServicesSection />
         <ProjectsSection />
         <SkillsSection />
-        <BlogSection />
+        <EducationSection />
         <ContactSection />
       </main>
       <Footer />

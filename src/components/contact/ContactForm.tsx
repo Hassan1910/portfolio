@@ -1,167 +1,122 @@
-import React, { useState, forwardRef } from 'react';
-import { useToast } from "@/components/ui/use-toast";
-import { Send, Loader2 } from "lucide-react";
+import { useState, type ChangeEvent, type FormEvent } from "react";
+import { profile } from "@/data/profile";
 
-const API_URL = process.env.NODE_ENV === 'production'
-  ? '/api/send-email'
-  : 'http://localhost:3001/api/send-email';
+type Fields = {
+  name: string;
+  email: string;
+  message: string;
+};
 
-interface ContactFormProps {
-  nameInputRef?: React.RefObject<HTMLInputElement>;
-}
+const empty: Fields = { name: "", email: "", message: "" };
 
-const ContactForm = forwardRef<HTMLInputElement, ContactFormProps>(({ nameInputRef }) => {
-  const { toast } = useToast();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: '',
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
+const endpoint = import.meta.env.VITE_CONTACT_ENDPOINT;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+const buildMailto = ({ name, email, message }: Fields) => {
+  const subject = encodeURIComponent(`Portfolio message from ${name}`);
+  const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+  return `mailto:${profile.email}?subject=${subject}&body=${body}`;
+};
+
+const ContactForm = () => {
+  const [fields, setFields] = useState<Fields>(empty);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "mailto" | "error">("idle");
+
+  const onChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+    setFields((current) => ({ ...current, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const mailto = buildMailto(fields);
 
-    if (!formData.name || !formData.email || !formData.message) {
-      toast({ title: "Error", description: "Please fill out all required fields.", variant: "destructive" });
-      setIsSubmitting(false);
+    if (!endpoint) {
+      setStatus("mailto");
+      window.location.href = mailto;
       return;
     }
 
+    setStatus("sending");
     try {
-      const response = await fetch(API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(fields),
       });
-      const data = await response.json();
-
-      if (!response.ok) throw new Error(data.error || 'Failed to send message');
-
-      toast({ title: "Message sent!", description: "I'll get back to you soon." });
-      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: error instanceof Error ? error.message : "Failed to send message",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
+      if (!response.ok) {
+        throw new Error("Request failed");
+      }
+      setFields(empty);
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+      window.location.href = mailto;
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
-      <div className="grid sm:grid-cols-2 gap-8">
-        <div className="space-y-1">
-          <label htmlFor="name" className="text-xs text-muted-foreground uppercase tracking-wider">
-            Name <span className="text-primary">*</span>
-          </label>
-          <input
-            id="name"
-            name="name"
-            ref={nameInputRef}
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Your full name"
-            className="form-input"
-            required
-          />
-        </div>
-        <div className="space-y-1">
-          <label htmlFor="email" className="text-xs text-muted-foreground uppercase tracking-wider">
-            Email <span className="text-primary">*</span>
-          </label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="you@example.com"
-            className="form-input"
-            required
-          />
-        </div>
-      </div>
-
-      <div className="space-y-1">
-        <label htmlFor="phone" className="text-xs text-muted-foreground uppercase tracking-wider">
-          Phone <span className="text-muted-foreground/50">(optional)</span>
+    <form onSubmit={onSubmit} className="space-y-5" noValidate={false}>
+      <div>
+        <label htmlFor="name" className="text-sm text-foreground">
+          Name
         </label>
         <input
-          id="phone"
-          name="phone"
-          type="tel"
-          value={formData.phone}
-          onChange={handleChange}
-          placeholder="+254 XXX XXX XXX"
-          className="form-input"
-        />
-      </div>
-
-      <div className="space-y-1">
-        <label htmlFor="subject" className="text-xs text-muted-foreground uppercase tracking-wider">
-          Subject <span className="text-primary">*</span>
-        </label>
-        <input
-          id="subject"
-          name="subject"
-          value={formData.subject}
-          onChange={handleChange}
-          placeholder="What is this about?"
-          className="form-input"
+          id="name"
+          name="name"
           required
+          autoComplete="name"
+          value={fields.name}
+          onChange={onChange}
+          className="mt-1.5 w-full rounded-md border border-border bg-transparent px-3 py-2 text-sm"
         />
       </div>
-
-      <div className="space-y-1">
-        <label htmlFor="message" className="text-xs text-muted-foreground uppercase tracking-wider">
-          Message <span className="text-primary">*</span>
+      <div>
+        <label htmlFor="email" className="text-sm text-foreground">
+          Email
+        </label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          required
+          autoComplete="email"
+          value={fields.email}
+          onChange={onChange}
+          className="mt-1.5 w-full rounded-md border border-border bg-transparent px-3 py-2 text-sm"
+        />
+      </div>
+      <div>
+        <label htmlFor="message" className="text-sm text-foreground">
+          Message
         </label>
         <textarea
           id="message"
           name="message"
-          value={formData.message}
-          onChange={handleChange}
-          placeholder="Tell me about your project..."
-          rows={5}
-          className="form-input resize-none"
           required
+          rows={5}
+          value={fields.message}
+          onChange={onChange}
+          className="mt-1.5 w-full resize-y rounded-md border border-border bg-transparent px-3 py-2 text-sm"
         />
       </div>
 
-      <button
-        type="submit"
-        className="btn-primary w-full justify-center"
-        disabled={isSubmitting}
-        id="contact-submit-btn"
-      >
-        {isSubmitting ? (
-          <>
-            <Loader2 size={14} className="animate-spin" />
-            Sending...
-          </>
-        ) : (
-          <>
-            <Send size={14} />
-            Send Message
-          </>
-        )}
+      <button type="submit" className="btn-primary" disabled={status === "sending"}>
+        {status === "sending" ? "Sending…" : endpoint ? "Send message" : "Email Hassan"}
       </button>
+
+      <p className="text-sm leading-relaxed text-muted-foreground" role="status">
+        {status === "sent"
+          ? "Message sent. Hassan will reply by email."
+          : status === "error"
+            ? "The contact API did not accept the message, so your email app should open instead."
+            : status === "mailto"
+              ? "Your email app should open with this message filled in."
+              : endpoint
+                ? "This form posts to the contact API configured for this build."
+                : "This static site does not store messages. The button opens your email app with the note filled in. You can also write directly to the address above."}
+      </p>
     </form>
   );
-});
-
-ContactForm.displayName = 'ContactForm';
+};
 
 export default ContactForm;

@@ -1,56 +1,33 @@
-import React from 'react';
-
-const skillGroups = [
-  {
-    category: 'Languages',
-    skills: ['JavaScript', 'TypeScript', 'PHP', 'Python', 'HTML', 'CSS'],
-  },
-  {
-    category: 'Frameworks & Libraries',
-    skills: ['React', 'Next.js', 'React Native', 'Tailwind CSS', 'Bootstrap', 'jQuery'],
-  },
-  {
-    category: 'Backend & Databases',
-    skills: ['Node.js', 'MySQL', 'PostgreSQL', 'MongoDB', 'Supabase', 'RESTful APIs'],
-  },
-  {
-    category: 'AI & Tools',
-    skills: ['OpenAI API', 'Hugging Face', 'FFmpeg', 'LangChain', 'TensorFlow', 'Text-to-Speech'],
-  },
-  {
-    category: 'DevOps & Tools',
-    skills: ['Git', 'GitHub', 'VS Code', 'Docker', 'Netlify', 'Vercel'],
-  },
-  {
-    category: 'Currently Learning',
-    skills: ['Python for Cybersecurity', 'Ethical Hacking', 'Large Language Models', 'Cloud Architecture', 'Web3'],
-  },
-];
+import Section from "@/components/Section";
+import { alsoBuilds, homeLab, skillGroups } from "@/data/profile";
 
 const SkillsSection = () => {
   return (
-    <section id="skills" className="section-container">
-      <p className="section-heading">Skills</p>
-      <h2 className="section-title">Technical Stack</h2>
-      <p className="text-muted-foreground text-sm mb-12 max-w-lg">
-        Technologies and tools I use to build robust, scalable applications.
-      </p>
-
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <Section
+      id="skills"
+      eyebrow="Skills"
+      title="What I use day to day"
+      intro="Network, helpdesk and desktop support come first. Web frameworks are how some of the side projects are built."
+    >
+      <dl className="space-y-8">
         {skillGroups.map((group) => (
-          <div key={group.category}>
-            <h3 className="text-xs font-mono font-medium text-primary uppercase tracking-widest mb-4">
-              {group.category}
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {group.skills.map((skill) => (
-                <span key={skill} className="tech-tag">{skill}</span>
-              ))}
-            </div>
+          <div key={group.title} className="grid gap-1 sm:grid-cols-[14rem_1fr] sm:gap-8">
+            <dt className="text-sm font-medium text-foreground">{group.title}</dt>
+            <dd className="text-sm leading-relaxed text-muted-foreground">{group.body}</dd>
           </div>
         ))}
+      </dl>
+
+      <div className="mt-12 border-t border-border pt-8">
+        <h3 className="text-sm font-medium text-foreground">Also builds</h3>
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{alsoBuilds.join(" · ")}</p>
       </div>
-    </section>
+
+      <div className="mt-8 border-t border-border pt-8">
+        <h3 className="text-sm font-medium text-foreground">Home lab</h3>
+        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">{homeLab}</p>
+      </div>
+    </Section>
   );
 };
 
